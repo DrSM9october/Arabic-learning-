@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.yourapp.arabiclearning'
-    compileSdk 34
+    compileSdk 33   // از 34 به 33 تغییر دهید
 
     defaultConfig {
         applicationId "com.yourapp.arabiclearning"
         minSdk 21
-        targetSdk 34
+        targetSdk 33   // از 34 به 33 تغییر دهید
         versionCode 1
         versionName "1.0"
     }
