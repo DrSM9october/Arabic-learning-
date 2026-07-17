@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.yourapp.arabiclearning'
-    compileSdk 34  // بالاترین نسخه SDK موجود
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.yourapp.arabiclearning"
-        minSdk 26
-        targetSdk 34  // برای Android 14 و بالاتر
+        minSdk 21
+        targetSdk 33
         versionCode 1
         versionName "1.0"
     }
@@ -20,15 +20,21 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+    // این بخش رو اضافه کن تا از تداخل Kotlin جلوگیری کنه
+    configurations.all {
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
+            force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
+            force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
+        }
     }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.core:core-splashscreen:1.0.1'
+    
+    // اضافه کردن Kotlin برای هماهنگی
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
 }
