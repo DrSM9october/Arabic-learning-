@@ -2,20 +2,25 @@ package com.yourapp.arabiclearning.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.yourapp.arabiclearning.models.DailyPhrase;
 import com.yourapp.arabiclearning.models.Phrase;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "arabic_phrases.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String TABLE_PHRASES = "phrases";
+    private Context context;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -40,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[][] iraqi = {
             {"هَلا", "سلام", "hala", "iraqi", "neutral", "greeting", "beginner"},
             {"شَلونَكَ؟", "چطوری؟ (مذکر)", "shlonak", "iraqi", "male", "greeting", "beginner"},
-            // ... بقیه جملات رو اینجا بذار ...
+            // ... بقیه جملات رو اینجا بذار (همون ۴۶۰ جمله کامل) ...
         };
         // و بقیه لهجه‌ها...
         insertPhrases(db, iraqi);
@@ -111,7 +116,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // ===== متد جدید برای ذخیره جمله =====
     public long insertPhrase(Phrase phrase) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -127,6 +131,67 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long id = db.insert(TABLE_PHRASES, null, values);
         db.close();
         return id;
+    }
+
+    // ===== متدهای جدید برای بخش حفظ روزانه =====
+
+    // ذخیره پیشرفت روزانه
+    public void saveDailyProgress(List<DailyPhrase> dailyPhrases) {
+        SharedPreferences prefs = context.getSharedPreferences("daily_progress", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        
+        int learned = 0;
+        for (DailyPhrase dp : dailyPhrases) {
+            if (dp.isLearned()) learned++;
+        }
+        
+        String today = getTodayDate();
+        String lastDate = prefs.getString("last_date", "");
+        
+        // محاسبه روزهای پیاپی
+        int streak = prefs.getInt("streak", 0);
+        if (today.equals(lastDate)) {
+            // امروز قبلاً ذخیره شده
+        } else if (isYesterday(lastDate)) {
+            streak++;
+        } else {
+            streak = 1;
+        }
+        
+        editor.putInt("learned_today", learned);
+        editor.putInt("streak", streak);
+        editor.putString("last_date", today);
+        editor.apply();
+    }
+
+    // دریافت تعداد روزهای پیاپی
+    public int getStreak() {
+        SharedPreferences prefs = context.getSharedPreferences("daily_progress", Context.MODE_PRIVATE);
+        return prefs.getInt("streak", 0);
+    }
+
+    // دریافت تعداد جملات یاد گرفته شده امروز
+    public int getTodayLearned() {
+        SharedPreferences prefs = context.getSharedPreferences("daily_progress", Context.MODE_PRIVATE);
+        return prefs.getInt("learned_today", 0);
+    }
+
+    // دریافت تاریخ امروز
+    private String getTodayDate() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.YEAR) + "-" + 
+               (cal.get(Calendar.MONTH) + 1) + "-" + 
+               cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    // بررسی اینکه آیا تاریخ دیروز است
+    private boolean isYesterday(String date) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        String yesterday = cal.get(Calendar.YEAR) + "-" + 
+                          (cal.get(Calendar.MONTH) + 1) + "-" + 
+                          cal.get(Calendar.DAY_OF_MONTH);
+        return date.equals(yesterday);
     }
 
     private List<Phrase> cursorToPhraseList(Cursor cursor) {
