@@ -32,8 +32,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "is_favorite INTEGER DEFAULT 0" +
                 ")";
         db.execSQL(createTable);
-
-        // جملات نمونه (بیش از ۴۰۰ جمله در نسخه کامل)
         insertSamplePhrases(db);
     }
 
@@ -125,6 +123,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return results;
+    }
+
+    // ===== متد جدید برای ذخیره/حذف از علاقه‌مندی‌ها =====
+    public void toggleFavorite(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "UPDATE " + TABLE_PHRASES + 
+                     " SET is_favorite = CASE WHEN is_favorite = 0 THEN 1 ELSE 0 END" +
+                     " WHERE id = ?";
+        db.execSQL(sql, new Object[]{id});
+        db.close();
     }
 
     private List<Phrase> cursorToPhraseList(Cursor cursor) {
