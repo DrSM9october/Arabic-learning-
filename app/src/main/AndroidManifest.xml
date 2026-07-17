@@ -15,5 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- ===== Activities جدید ===== -->
+        <activity android:name=".ImportActivity" />
+        <activity android:name=".EmergencyActivity" />
+        
     </application>
 </manifest>
