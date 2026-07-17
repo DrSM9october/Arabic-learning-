@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">آموزش لهجه‌های عربی</string>
+    <string name="title_main">آموزش لهجه‌های عربی</string>
+    <string name="title_emergency">🆘 ترجمه اضطراری</string>
+    <string name="btn_translate">🔍 ترجمه کن</string>
+    <string name="btn_speak">🔊 گوش کن</string>
+    <string name="btn_save">💾 ذخیره</string>
+    <string name="btn_import">📥 واردات</string>
+    <string name="btn_scan_qr">📷 اسکن QR</string>
+    <string name="btn_emergency">🆘 ترجمه اضطراری</string>
+    <string name="btn_random">🎲 تصادفی</string>
+    <string name="btn_speak_all">🔊 پخش همه</string>
+    <string name="label_dialect">لهجه:</string>
+    <string name="label_gender">جنسیت:</string>
+    <string name="label_search">جستجوی جمله...</string>
+</resources>
