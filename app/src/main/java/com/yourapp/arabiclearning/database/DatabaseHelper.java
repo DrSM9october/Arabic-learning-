@@ -405,4 +405,4 @@ String[][] lebanese = {
     {"نَعسان", "خوابم می‌آید (مذکر)", "na3san", "lebanese", "male", "emotion", "intermediate"},
     {"نَعسانَة", "خوابم می‌آید (مونث)", "na3sane", "lebanese", "female", "emotion", "intermediate"},
     {"جوعان", "گرسنه‌ام (مذکر)", "ju3an", "lebanese", "male", "emotion", "intermediate"},
-}; 
+}
