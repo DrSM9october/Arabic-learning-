@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application android:label="MyApp">
+    <application android:label="Dear Saeed">
         <activity android:name=".MainActivity"
                   android:exported="true">
             <intent-filter>
