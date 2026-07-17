@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // ===== دکمه‌ها با Intent به Activities جدید =====
     private void setupButtons() {
         // پخش همه
         findViewById(R.id.btnSpeakAll).setOnClickListener(v -> {
@@ -131,14 +130,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // ===== دکمه ترجمه اضطراری (فعال) =====
+        // ترجمه اضطراری
         findViewById(R.id.btnEmergency).setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, EmergencyActivity.class));
         });
 
-        // ===== دکمه واردات (فعال) =====
+        // واردات
         findViewById(R.id.btnImport).setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, ImportActivity.class));
+        });
+
+        // ===== دکمه جدید: حفظ روزانه =====
+        findViewById(R.id.btnDailyMemorization).setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, DailyMemorizationActivity.class));
         });
     }
 
