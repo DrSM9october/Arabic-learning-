@@ -10,8 +10,14 @@ public class TTSManager {
     private TextToSpeech tts;
     private boolean isReady = false;
     private float speechRate = 0.85f;
+    private Context context;
+
+    // تعداد و فاصله تکرار پیش‌فرض
+    private int defaultRepeatCount = 2;
+    private int repeatDelay = 800; // میلی‌ثانیه (۰.۸ ثانیه)
 
     public TTSManager(Context context) {
+        this.context = context;
         tts = new TextToSpeech(context, status -> {
             if (status == TextToSpeech.SUCCESS) {
                 int result = tts.setLanguage(new Locale("ar"));
@@ -22,19 +28,14 @@ public class TTSManager {
                 tts.setSpeechRate(speechRate);
                 tts.setPitch(1.0f);
                 isReady = true;
-                Log.d("TTSManager", "TTS initialized successfully");
-            } else {
-                Log.e("TTSManager", "TTS initialization failed");
+                Log.d("TTSManager", "TTS ready");
             }
         });
     }
 
-    // ===== تلفظ یک بار =====
+    // ===== تلفظ یک بار (همون دکمه 🔊) =====
     public void speak(String text, String dialect) {
-        if (!isReady) {
-            Log.w("TTSManager", "TTS not ready");
-            return;
-        }
+        if (!isReady) return;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "unique_id");
@@ -46,44 +47,35 @@ public class TTSManager {
             tts.setLanguage(new Locale("ar"));
             tts.setSpeechRate(0.85f);
         }
-
         tts.setPitch(1.0f);
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, params);
     }
 
-    // ===== تلفظ با تکرار خودکار =====
-    public void speakWithRepeat(String text, String dialect, int repeatCount) {
+    // ===== تلفظ با تکرار (دکمه 🔁) =====
+    public void speakWithRepeat(String text, String dialect) {
         if (!isReady) return;
 
-        for (int i = 0; i < repeatCount; i++) {
+        // اجرای تکرار با مکث
+        for (int i = 0; i < defaultRepeatCount; i++) {
             speak(text, dialect);
-            try {
-                Thread.sleep(500); // نیم ثانیه بین تکرارها
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (i < defaultRepeatCount - 1) { // بعد از آخرین تکرار مکث نکن
+                try {
+                    Thread.sleep(repeatDelay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
-    // ===== تلفظ با سرعت دلخواه =====
-    public void speakWithSpeed(String text, String dialect, float speed) {
-        if (!isReady) return;
-
-        if ("american".equals(dialect)) {
-            tts.setLanguage(Locale.US);
-        } else {
-            tts.setLanguage(new Locale("ar"));
-        }
-
-        tts.setSpeechRate(speed);
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-        tts.setSpeechRate(speechRate); // برگشت به سرعت پیش‌فرض
+    // ===== تنظیم تعداد و فاصله تکرار (برای استفاده در آینده) =====
+    public void setRepeatSettings(int count, int delayMs) {
+        this.defaultRepeatCount = count;
+        this.repeatDelay = delayMs;
     }
 
     public void stop() {
-        if (tts != null) {
-            tts.stop();
-        }
+        if (tts != null) tts.stop();
     }
 
     public void destroy() {
@@ -96,12 +88,5 @@ public class TTSManager {
 
     public boolean isReady() {
         return isReady;
-    }
-
-    public void setSpeechRate(float rate) {
-        this.speechRate = rate;
-        if (isReady) {
-            tts.setSpeechRate(rate);
-        }
     }
 }
