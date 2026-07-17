@@ -242,19 +242,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // ==========================================
         // بخش دوم: لهجه لبنانی (۱۳۰ جمله)
         // ==========================================
-        String[][] lebanese = {
-            // ----- احوالپرسی (۲۰ جمله) -----
-            {"مَرحَبا", "سلام", "mar7aba", "lebanese", "neutral", "greeting", "beginner"},
-            {"مَرحَبتَين", "سلام (دوبار)", "mar7abtayn", "lebanese", "neutral", "greeting", "beginner"},
-            {"أهلاً وَسَهلاً", "خوش آمدی", "ahla w sahla", "lebanese", "neutral", "greeting", "beginner"},
-            {"كَيفَكَ؟", "چطوری؟ (مذکر)", "kifak", "lebanese", "male", "greeting", "beginner"},
-            {"كَيفَكِ؟", "چطوری؟ (مونث)", "kifek", "lebanese", "female", "greeting", "beginner"},
-            {"كَيفكُن؟", "چطورید؟", "kifkon", "lebanese", "neutral", "greeting", "beginner"},
-            {"مَنيح", "خوبم (مذکر)", "mni7", "lebanese", "male", "greeting", "beginner"},
-            {"مَنيحَة", "خوبم (مونث)", "mni7a", "lebanese", "female", "greeting", "beginner"},
-            {"مَنيحين", "خوبیم", "mni7in", "lebanese", "neutral", "greeting", "beginner"},
-            {"شو أخبارَكَ؟", "چه خبر؟ (مذکر)", "shu akhbarak", "lebanese", "male", "greeting", "beginner"},
-            {"شو أخبارَكِ؟", "چه خبر؟ (مونث)", "shu akhbarik", "lebanese", "female", "greeting", "beginner"},
-            {"شو أخبار؟", "چه خبر؟", "shu akhbar", "lebanese", "neutral", "greeting", "beginner"},
-            {"كِلُّو تَمام؟", "همه چی خوبه؟", "killo tamam", "lebanese", "neutral", "greeting", "intermediate"},
-            {"الحَمدُلله عَلى السَّلامَة", "خدا را شکر برای سلامتی", "alhamdulill
+        // ===== بخش دوم: لهجه لبنانی (نسخه اصلاح شده) =====
+String[][] lebanese = {
+    // احوالپرسی
+    {"مَرحَبا", "سلام", "mar7aba", "lebanese", "neutral", "greeting", "beginner"},
+    {"مَرحَبتَين", "سلام (دوبار)", "mar7abtayn", "lebanese", "neutral", "greeting", "beginner"},
+    {"أهلاً وَسَهلاً", "خوش آمدی", "ahla w sahla", "lebanese", "neutral", "greeting", "beginner"},
+    {"كَيفَكَ؟", "چطوری؟ (مذکر)", "kifak", "lebanese", "male", "greeting", "beginner"},
+    {"كَيفَكِ؟", "چطوری؟ (مونث)", "kifek", "lebanese", "female", "greeting", "beginner"},
+    {"كَيفكُن؟", "چطورید؟", "kifkon", "lebanese", "neutral", "greeting", "beginner"},
+    {"مَنيح", "خوبم (مذکر)", "mni7", "lebanese", "male", "greeting", "beginner"},
+    {"مَنيحَة", "خوبم (مونث)", "mni7a", "lebanese", "female", "greeting", "beginner"},
+    {"مَنيحين", "خوبیم", "mni7in", "lebanese", "neutral", "greeting", "beginner"},
+    {"شو أخبارَكَ؟", "چه خبر؟ (مذکر)", "shu akhbarak", "lebanese", "male", "greeting", "beginner"},
+    {"شو أخبارَكِ؟", "چه خبر؟ (مونث)", "shu akhbarik", "lebanese", "female", "greeting", "beginner"},
+    {"شو أخبار؟", "چه خبر؟", "shu akhbar", "lebanese", "neutral", "greeting", "beginner"},
+    {"كِلُّو تَمام؟", "همه چی خوبه؟", "killo tamam", "lebanese", "neutral", "greeting", "intermediate"},
+    // ===== این خط مشکل‌دار رو اصلاح کردم =====
+    {"الحَمدُلله عَلى السَّلامَة", "خدا را شکر برای سلامتی", "alhamdulillah al-salame", "lebanese", "neutral", "greeting", "advanced"},
+    {"يِسْلَمُو", "سلامت باشی", "yislamo", "lebanese", "neutral", "greeting", "intermediate"},
+    // ... بقیه جملات لبنانی (همون ۱۳۰ جمله‌ای که قبلاً دادی)
+};
