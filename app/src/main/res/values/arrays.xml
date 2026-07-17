@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dialects_array">
+        <item>عراقی</item>
+        <item>لبنانی</item>
+        <item>آمریکایی</item>
+    </string-array>
+
+    <string-array name="dialects_values">
+        <item>iraqi</item>
+        <item>lebanese</item>
+        <item>american</item>
+    </string-array>
+
+    <string-array name="gender_array">
+        <item>خنثی (همه)</item>
+        <item>مذکر</item>
+        <item>مونث</item>
+    </string-array>
+
+    <string-array name="gender_values">
+        <item>neutral</item>
+        <item>male</item>
+        <item>female</item>
+    </string-array>
+</resources>
