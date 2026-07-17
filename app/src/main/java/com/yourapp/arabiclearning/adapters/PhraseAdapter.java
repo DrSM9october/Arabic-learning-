@@ -43,26 +43,47 @@ public class PhraseAdapter extends RecyclerView.Adapter<PhraseAdapter.ViewHolder
 
         Phrase phrase = filteredList.get(position);
 
+        // نمایش متن عربی
         holder.txtArabic.setText(phrase.arabicText);
+        
+        // نمایش ترجمه فارسی
         holder.txtPersian.setText(phrase.persianText);
+        
+        // نمایش تلفظ (فونتیک)
         holder.txtPhonetic.setText(phrase.phonetic);
+        
+        // نمایش دسته‌بندی
         holder.txtCategory.setText(phrase.category);
+        
+        // نمایش سطح
         holder.txtDifficulty.setText(phrase.difficulty);
 
+        // نمایش جنسیت
         String genderDisplay = "⚪";
         if ("male".equals(phrase.gender)) genderDisplay = "♂";
         else if ("female".equals(phrase.gender)) genderDisplay = "♀";
         holder.txtGender.setText(genderDisplay);
 
+        // نمایش ستاره ذخیره
         holder.btnFavorite.setImageResource(phrase.isFavorite ?
                 android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
 
+        // ===== دکمه تلفظ (یک بار) =====
         holder.btnSpeak.setOnClickListener(v -> {
             if (ttsManager != null) {
                 ttsManager.speak(phrase.arabicText, phrase.dialect);
             }
         });
 
+        // ===== دکمه تکرار خودکار (۳ بار) =====
+        holder.btnRepeat.setOnClickListener(v -> {
+            if (ttsManager != null) {
+                ttsManager.speakWithRepeat(phrase.arabicText, phrase.dialect, 3);
+                Toast.makeText(v.getContext(), "🔁 تکرار ۳ بار", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // ===== دکمه ذخیره/حذف از علاقه‌مندی‌ها =====
         holder.btnFavorite.setOnClickListener(v -> {
             if (dbHelper != null) {
                 dbHelper.toggleFavorite(phrase.id);
@@ -80,6 +101,7 @@ public class PhraseAdapter extends RecyclerView.Adapter<PhraseAdapter.ViewHolder
         return filteredList != null ? filteredList.size() : 0;
     }
 
+    // ===== متد جستجو =====
     public void filter(String query) {
         if (filteredList == null) return;
         filteredList.clear();
@@ -99,19 +121,24 @@ public class PhraseAdapter extends RecyclerView.Adapter<PhraseAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    // ===== به‌روزرسانی لیست =====
     public void updateData(List<Phrase> newList) {
         this.originalList = newList != null ? newList : new ArrayList<>();
         this.filteredList = new ArrayList<>(this.originalList);
         notifyDataSetChanged();
     }
 
+    // ===== دریافت لیست فیلتر شده =====
     public List<Phrase> getFilteredList() {
         return filteredList;
     }
 
+    // ==========================================
+    // کلاس ViewHolder
+    // ==========================================
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtArabic, txtPersian, txtPhonetic, txtCategory, txtDifficulty, txtGender;
-        Button btnSpeak;
+        Button btnSpeak, btnRepeat;
         ImageView btnFavorite;
 
         ViewHolder(View itemView) {
@@ -123,6 +150,7 @@ public class PhraseAdapter extends RecyclerView.Adapter<PhraseAdapter.ViewHolder
             txtDifficulty = itemView.findViewById(R.id.txtDifficulty);
             txtGender = itemView.findViewById(R.id.txtGender);
             btnSpeak = itemView.findViewById(R.id.btnSpeak);
+            btnRepeat = itemView.findViewById(R.id.btnRepeat);
             btnFavorite = itemView.findViewById(R.id.btnFavorite);
         }
     }
