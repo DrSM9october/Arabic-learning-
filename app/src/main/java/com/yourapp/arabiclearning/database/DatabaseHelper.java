@@ -404,5 +404,5 @@ String[][] lebanese = {
     {"خايفَة", "می‌ترسم (مونث)", "khayfe", "lebanese", "female", "emotion", "intermediate"},
     {"نَعسان", "خوابم می‌آید (مذکر)", "na3san", "lebanese", "male", "emotion", "intermediate"},
     {"نَعسانَة", "خوابم می‌آید (مونث)", "na3sane", "lebanese", "female", "emotion", "intermediate"},
-    {"جوعان", "گرسنه‌ام (مذکر)", "ju3an", "lebanese", "male", "emotion", "intermediate"}
-};  // ← آخرین جمله بدون کاما و با ; بسته شده
+    {"جوعان", "گرسنه‌ام (مذکر)", "ju3an", "lebanese", "male", "emotion", "intermediate"},
+}; 
