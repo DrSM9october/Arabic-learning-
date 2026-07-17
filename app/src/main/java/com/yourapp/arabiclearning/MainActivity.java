@@ -1,5 +1,6 @@
 package com.yourapp.arabiclearning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -108,7 +109,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // ===== دکمه‌ها با Intent به Activities جدید =====
     private void setupButtons() {
+        // پخش همه
         findViewById(R.id.btnSpeakAll).setOnClickListener(v -> {
             List<Phrase> phrases = adapter.getFilteredList();
             for (Phrase p : phrases) {
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // تصادفی
         findViewById(R.id.btnRandom).setOnClickListener(v -> {
             List<Phrase> phrases = adapter.getFilteredList();
             if (!phrases.isEmpty()) {
@@ -127,13 +131,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btnEmergency).setOnClickListener(v ->
-                Toast.makeText(this, "🆘 صفحه ترجمه اضطراری در نسخه بعدی", Toast.LENGTH_SHORT).show()
-        );
+        // ===== دکمه ترجمه اضطراری (فعال) =====
+        findViewById(R.id.btnEmergency).setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, EmergencyActivity.class));
+        });
 
-        findViewById(R.id.btnImport).setOnClickListener(v ->
-                Toast.makeText(this, "📥 واردات در نسخه بعدی", Toast.LENGTH_SHORT).show()
-        );
+        // ===== دکمه واردات (فعال) =====
+        findViewById(R.id.btnImport).setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, ImportActivity.class));
+        });
     }
 
     private void loadPhrases() {
