@@ -10,14 +10,12 @@ public class TTSManager {
     private TextToSpeech tts;
     private boolean isReady = false;
     private float speechRate = 0.85f;
-    private Context context;
 
-    // تعداد و فاصله تکرار پیش‌فرض
-    private int defaultRepeatCount = 2;
-    private int repeatDelay = 800; // میلی‌ثانیه (۰.۸ ثانیه)
+    // تنظیمات تکرار
+    private int repeatCount = 2;      // تعداد تکرار
+    private int repeatDelay = 800;    // میلی‌ثانیه (۰.۸ ثانیه)
 
     public TTSManager(Context context) {
-        this.context = context;
         tts = new TextToSpeech(context, status -> {
             if (status == TextToSpeech.SUCCESS) {
                 int result = tts.setLanguage(new Locale("ar"));
@@ -33,7 +31,7 @@ public class TTSManager {
         });
     }
 
-    // ===== تلفظ یک بار (همون دکمه 🔊) =====
+    // ===== تلفظ یک بار =====
     public void speak(String text, String dialect) {
         if (!isReady) return;
 
@@ -51,14 +49,13 @@ public class TTSManager {
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, params);
     }
 
-    // ===== تلفظ با تکرار (دکمه 🔁) =====
+    // ===== تلفظ با تکرار (با مکث) =====
     public void speakWithRepeat(String text, String dialect) {
         if (!isReady) return;
 
-        // اجرای تکرار با مکث
-        for (int i = 0; i < defaultRepeatCount; i++) {
+        for (int i = 0; i < repeatCount; i++) {
             speak(text, dialect);
-            if (i < defaultRepeatCount - 1) { // بعد از آخرین تکرار مکث نکن
+            if (i < repeatCount - 1) { // بعد از آخرین تکرار مکث نکن
                 try {
                     Thread.sleep(repeatDelay);
                 } catch (InterruptedException e) {
@@ -68,9 +65,15 @@ public class TTSManager {
         }
     }
 
-    // ===== تنظیم تعداد و فاصله تکرار (برای استفاده در آینده) =====
+    // ===== تلفظ با تکرار و تعداد دلخواه =====
+    public void speakWithRepeat(String text, String dialect, int count) {
+        this.repeatCount = count;
+        speakWithRepeat(text, dialect);
+    }
+
+    // ===== تنظیم تعداد و فاصله تکرار =====
     public void setRepeatSettings(int count, int delayMs) {
-        this.defaultRepeatCount = count;
+        this.repeatCount = count;
         this.repeatDelay = delayMs;
     }
 
