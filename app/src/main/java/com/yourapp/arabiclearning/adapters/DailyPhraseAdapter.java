@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yourapp.arabiclearning.DailyMemorizationActivity;
 import com.yourapp.arabiclearning.R;
 import com.yourapp.arabiclearning.models.DailyPhrase;
+import com.yourapp.arabiclearning.models.Phrase;  // ← این خط رو اضافه کن
 import com.yourapp.arabiclearning.utils.TTSManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,12 +68,10 @@ public class DailyPhraseAdapter extends RecyclerView.Adapter<DailyPhraseAdapter.
         // دکمه وضعیت یادگیری
         holder.btnStatus.setOnClickListener(v -> {
             if (dailyPhrase.isLearned()) {
-                // اگر یاد گرفته بود، به حالت نیاز به تکرار برگردان
                 dailyPhrase.setLearned(false);
                 dailyPhrase.setNeedsReview(true);
                 Toast.makeText(v.getContext(), "🔄 نیاز به تکرار دارید!", Toast.LENGTH_SHORT).show();
             } else {
-                // یاد گرفتم
                 dailyPhrase.setLearned(true);
                 dailyPhrase.setNeedsReview(false);
                 dailyPhrase.incrementReviewCount();
