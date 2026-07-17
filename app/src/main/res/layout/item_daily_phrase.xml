@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="@android:color/white">
+
+        <!-- جمله عربی -->
+        <TextView
+            android:id="@+id/txtDailyArabic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="شلونك؟"
+            android:textSize="20sp"
+            android:textColor="#1A237E"
+            android:textStyle="bold"/>
+
+        <!-- ترجمه فارسی -->
+        <TextView
+            android:id="@+id/txtDailyPersian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="چطوری؟"
+            android:textSize="16sp"
+            android:textColor="#616161"
+            android:layout_marginTop="4dp"/>
+
+        <!-- تلفظ -->
+        <TextView
+            android:id="@+id/txtDailyPhonetic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="shlonak"
+            android:textSize="12sp"
+            android:textColor="#9E9E9E"
+            android:fontFamily="monospace"/>
+
+        <!-- دسته‌بندی -->
+        <TextView
+            android:id="@+id/txtDailyCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="greeting"
+            android:textSize="12sp"
+            android:textColor="#4CAF50"
+            android:background="#E8F5E9"
+            android:padding="4dp"
+            android:layout_marginTop="4dp"/>
+
+        <!-- دکمه‌ها -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnDailySpeak"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="🔊"
+                android:backgroundTint="#FF5722"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp"/>
+
+            <Button
+                android:id="@+id/btnDailyStatus"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:text="📖 در حال یادگیری"
+                android:backgroundTint="#FF9800"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
+
+            <Button
+                android:id="@+id/btnDailyReview"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="🔄"
+                android:backgroundTint="#2196F3"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="4dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
